@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WANDR – Forest Mesh Network</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://i.imgur.com/6HzckXm.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px black;
+    }
+    .container {
+      text-align: center;
+      padding: 5% 10%;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .qr {
+      margin-top: 2rem;
+    }
+    .qr img {
+      width: 160px;
+      height: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
+    .wallet-btn, .mint-btn {
+      margin: 1rem;
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .wallet-btn:hover, .mint-btn:hover {
+      background-color: #388e3c;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@thirdweb-dev/sdk@3/dist/thirdweb.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🌲 WANDR: Forest Mesh Network</h1>
+    <p>
+      Bringing off-grid connectivity, wildfire detection, and regenerative NFT utility to the mountains. This is not a brand—it's a movement.
+    </p>
+
+    <button class="wallet-btn" onclick="connectWallet()">Connect Wallet</button>
+    <button class="mint-btn" onclick="mintNFT()">Mint WANDR NFT</button>
+
+    <div class="qr">
+      <p>Scan to support or deploy a WANDR node:</p>
+      <img src="https://i.imgur.com/xZqPfll.png" alt="WANDR QR Code">
+    </div>
+  </div>
+
+  <script type="module">
+    import { ThirdwebSDK } from "https://cdn.skypack.dev/@thirdweb-dev/sdk";
+
+    const sdk = new ThirdwebSDK("base"); // Use "base" or replace with your chain
+    const contractAddress = "0xWANDRNFTCONTRACTADDRESS"; // TODO: replace with your NFT smart contract address
+    let signer;
+
+    async function connectWallet() {
+      try {
+        const provider = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        signer = provider[0];
+        alert("Wallet connected: " + signer);
+      } catch (err) {
+        alert("Wallet connection failed: " + err.message);
+      }
+    }
+
+    async function mintNFT() {
+      if (!signer) {
+        alert("Connect your wallet first!");
+        return;
+      }
+
+      try {
+        const contract = await sdk.getContract(contractAddress);
+        const tx = await contract.erc721.claim(1);
+        alert("NFT Minted! Tx: " + tx.receipt.transactionHash);
+      } catch (e) {
+        alert("Mint failed: " + e.message);
+      }
+    }
+  </script>
+</body>
+</html>

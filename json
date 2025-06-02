@@ -1,0 +1,23 @@
+{
+  "owner": "0xf4fa4f7e4b1ff6d23a32d0ca87a6918e3fba4700",
+  "trustedForwarders": [
+    {
+      "name": "Thirdweb Default Forwarder (Ethereum)",
+      "address": "0x6E2B76966cbD9cF4cC2Fa0D78D2d2fA5B8fA7eB0",
+      "chainId": 1,
+      "network": "Ethereum Mainnet"
+    },
+    {
+      "name": "Thirdweb Default Forwarder (Polygon)",
+      "address": "0xA6fBEcDfF3CeB8b5Ee94Efe2a2c5f5Da680E2aC1",
+      "chainId": 137,
+      "network": "Polygon Mainnet"
+    },
+    {
+      "name": "Thirdweb Default Forwarder (Base)",
+      "address": "0xDbd59Cc6A8526f5aBbAC18795e9c13787B8E54C8",
+      "chainId": 8453,
+      "network": "Base Mainnet"
+    }
+  ]
+}
